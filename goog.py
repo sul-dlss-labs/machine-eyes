@@ -29,7 +29,3 @@ def detect_text(content):
                     for word in paragraph.words:
                         word_text = ''.join([symbol.text for symbol in word.symbols])
                         st.write(f"Word text: {word_text} (confidence: {word.confidence}")
-
-                        for symbol in word.symbols:
-                            st.write(f"\tSymbol: {symbol.text} (confidence: {symbol.confidence}")
-
