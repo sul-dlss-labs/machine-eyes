@@ -40,6 +40,9 @@ def drop_file_or_url():
         show_results(image_bytes)
 
 def show_results(image_bytes):
+
+    if not any([st.session_state["goog"], st.session_state["ms"], st.session_state["aws"]]):
+        st.header("No services selected")
     
     if st.session_state["goog"] is True:
         detect_text(image_bytes)
