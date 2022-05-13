@@ -1,4 +1,5 @@
 azure-cognitiveservices-vision-computervision
+boto3
 google-cloud-vision
 pillow
 streamlit
