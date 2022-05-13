@@ -14,3 +14,5 @@ Set the following environmental variables for the various services:
 - **AZURE_COMPUTER_VISION_KEY**
 - **AWS_ACCESS_KEY**
 - **AWS_SECRET_ACCESS_KEY**
+
+These values are set in an `.env` file.

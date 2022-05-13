@@ -12,7 +12,7 @@ from msrest.authentication import CognitiveServicesCredentials
 import streamlit as st
 
 subscription_key = os.environ["AZURE_COMPUTER_VISION_KEY"]
-endpoint = 'https://stanford.cognitiveservices.azure.com/'
+endpoint = os.environ["AZURE_COMPUTER_VISION_ENDPOINT"]
 
 def _generate_annotated_image(content, read_results):
     image_stream = io.BytesIO(content)
