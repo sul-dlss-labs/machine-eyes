@@ -1,5 +1,27 @@
-from google.cloud import vision
+import io
 import streamlit as st
+
+from PIL import Image, ImageDraw
+from google.cloud import vision
+
+
+def _generate_annotated_image(content, annotations):
+    image_stream = io.BytesIO(content)
+    image = Image.open(image_stream)
+
+    for word in annotations:
+        bounding_poly = word.bounding_poly
+
+        draw = ImageDraw.Draw(image)
+        rect = [
+            bounding_poly.vertices[0].x,  # left
+            bounding_poly.vertices[0].y,  # top
+            bounding_poly.vertices[-2].x,  # right
+            bounding_poly.vertices[-2].y  # bottom  
+        ]
+        draw.rectangle(rect, outline='red')
+
+    return image
 
 def gcp_detect_text(content):
     client = vision.ImageAnnotatorClient()
@@ -10,6 +32,7 @@ def gcp_detect_text(content):
 
     header_text = """<h3 style="font-family: Monaco">Google</h3>"""
     st.markdown(header_text, unsafe_allow_html=True)
+
     st.download_button(
         label="Download transcipt",
         data='\n'.join([row.description for row in response.text_annotations])
@@ -17,15 +40,12 @@ def gcp_detect_text(content):
 
     image_col, text_col = st.columns(2)
 
+
+    annotated_image = _generate_annotated_image(content, response.text_annotations)
+
     with image_col:
-        st.image(content)
+        st.image(annotated_image)
 
     with text_col:
-        for page in response.full_text_annotation.pages:
-            for block in page.blocks:
-                st.write(f"Block confidence: {block.confidence}")
-                for paragraph in block.paragraphs:
-                    st.write(f"Paragraph confidence: {paragraph.confidence}")
-                    for word in paragraph.words:
-                        word_text = ''.join([symbol.text for symbol in word.symbols])
-                        st.write(f"Word text: {word_text} (confidence: {word.confidence}")
+        for row in response.text_annotations:
+            st.write(row.description)
