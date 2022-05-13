@@ -19,7 +19,7 @@ Set the following environmental variables for the various services:
 These values are set in an `.env` file. 
 
 To run the application on port 80:
-1. First user to root
+1. First change user to root
 2. Populate environment variables by `source .env`
 3. Activate the Python environment by `source py3-env/bin/activate`
 4. Run streamlit in the background `streamlit run app.py --server.address="0.0.0.0" --server.port="80" &`.
