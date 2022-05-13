@@ -12,6 +12,7 @@ commercial services:
 Set the following environmental variables for the various services:
 - **GOOGLE_APPLICATION_CREDENTIALS** path to JSON file
 - **AZURE_COMPUTER_VISION_KEY**
+- **AZURE_COMPUTER_VISION_ENDPOINT**
 - **AWS_ACCESS_KEY**
 - **AWS_SECRET_ACCESS_KEY**
 
