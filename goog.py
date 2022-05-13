@@ -1,7 +1,7 @@
 from google.cloud import vision
 import streamlit as st
 
-def detect_text(content):
+def gcp_detect_text(content):
     client = vision.ImageAnnotatorClient()
 
     image = vision.Image(content=content)
