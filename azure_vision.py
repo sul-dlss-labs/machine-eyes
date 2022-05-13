@@ -65,7 +65,8 @@ def acvs_detect_text(content):
 
     st.download_button(
         label="Download transcipt",
-        data="\n".join(text)
+        data="\n".join(text),
+        key="azure_download_transcript"
     )
 
     image_col, text_col = st.columns(2)

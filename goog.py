@@ -35,7 +35,8 @@ def gcp_detect_text(content):
 
     st.download_button(
         label="Download transcipt",
-        data='\n'.join([row.description for row in response.text_annotations])
+        data='\n'.join([row.description for row in response.text_annotations]),
+        key="google_download_transcript"
     )
 
     image_col, text_col = st.columns(2)
