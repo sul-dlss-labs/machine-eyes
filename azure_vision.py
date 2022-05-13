@@ -1,4 +1,5 @@
 # Starting https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/quickstarts-sdk/client-library?tabs=visual-studio&pivots=programming-language-python
+import io
 import os
 import time
 from PIL import Image
@@ -21,20 +22,46 @@ def acvs_detect_text(content):
         CognitiveServicesCredentials(subscription_key)
     )
 
-    read_response = client.read(content, raw=True)
+    image_stream = io.BytesIO(content)
+
+    
+    read_response = client.read_in_stream(image_stream, raw=True)
     read_op_location = read_response.headers["Operation-Location"]
     op_id = read_op_location.split("/")[-1]
 
-    while st.spinner("Waiting for result..."):
-        read_result = computervision_client.get_read_result(operation_id)
+    
+
+    while True:
+        read_result = client.get_read_result(op_id)
         if read_result.status.lower() not in ['notstarted', 'running']:
             break
         time.sleep(10)
 
+    text = []
+    for text_result in read_result.analyze_result.read_results:
+        for line in text_result.lines:
+            text.append(line.text)
+
 
     st.download_button(
         label="Download transcipt",
-        data='''Microsoft Transcript'''
+        data="\n".join(text)
     )
 
+    image_col, text_col = st.columns(2)
+    # image_stream = io.BytesIO(content)
+    # pil_image = Image.open(image_stream)
+    
+    # image_result = client.generate_thumbnail_in_stream(
+    #         600,
+    #         1000,
+    #         io.BytesIO(content),
+    #         raw=True
+    # )
 
+    with image_col:
+        st.image(content)
+
+    with text_col:
+        for row in text:
+            st.write(row)

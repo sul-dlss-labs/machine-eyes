@@ -56,10 +56,5 @@ def show_results(image_bytes):
     if st.session_state["aws"] is True:
         aws_detect_text(image_bytes)
 
-# if st.session_state.get("source"):
-#     image_bytes = st.session_state.pop("source")
-#     show_results(image_bytes)
-    
-# else:
+
 drop_file_or_url()
-    # st.session_state["source"] = None

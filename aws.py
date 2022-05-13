@@ -17,7 +17,11 @@ def aws_detect_text(content):
 
     st.header("Amazon")
 
-    client = boto3.client('textract', region_name='us-west-1')
+    client = boto3.client('textract',
+        region_name='us-west-1',
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key
+    )
 
     response = client.analyze_document(
         Document={"Bytes": content},
@@ -25,18 +29,24 @@ def aws_detect_text(content):
     )
 
     blocks = response["Blocks"]
-    # width, height = image.size
+  
+  
 
-    text = ''
-    for block in response['Blocks']:
+    text = []
+    for block in blocks:
         if block['BlockType'].startswith("LINE"):
-            text += block['Text']
+            text.append(block['Text'])
 
     st.download_button(
         label="Download transcipt",
-        data=text
+        data='\n'.join(text)
     )
 
-    st.write(text)
+    image_col, text_col = st.columns(2)
+    
+    image_col.image(content)
+
+    for row in text:
+        text_col.write(row)
 
 
