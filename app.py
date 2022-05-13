@@ -2,7 +2,10 @@
 
 from mimetypes import init
 import streamlit as st
-from goog import detect_text
+
+from aws import aws_detect_text
+from azure_vision import acvs_detect_text
+from goog import gcp_detect_text
 
 st.title("Machine Eyes")
 
@@ -45,27 +48,13 @@ def show_results(image_bytes):
         st.header("No services selected")
     
     if st.session_state["goog"] is True:
-        detect_text(image_bytes)
-
+        gcp_detect_text(image_bytes)
 
     if st.session_state["ms"] is True:
-        st.header("Microsoft")
-        st.download_button(
-            label="Download transcipt",
-            data='''Microsoft Transcript'''
-        )
+        acvs_detect_text(image_bytes)
 
     if st.session_state["aws"] is True:
-        st.header("Amazon")
-        st.download_button(
-            label="Download transcipt",
-            data='''Amazon Transcript'''
-        )
+        aws_detect_text(image_bytes)
 
-# if st.session_state.get("source"):
-#     image_bytes = st.session_state.pop("source")
-#     show_results(image_bytes)
-    
-# else:
+
 drop_file_or_url()
-    # st.session_state["source"] = None
