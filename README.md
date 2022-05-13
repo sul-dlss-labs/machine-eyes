@@ -6,3 +6,11 @@ commercial services:
 - [Google Vision](https://cloud.google.com/vision/)
 - [Microsoft Azure Computer Vision](https://azure.microsoft.com/en-us/services/cognitive-services/computer-vision/)
 - [Amazon Textract](https://aws.amazon.com/textract/)
+
+
+## Running
+Set the following environmental variables for the various services:
+- **GOOGLE_APPLICATION_CREDENTIALS** path to JSON file
+- **AZURE_COMPUTER_VISION_KEY**
+- **AWS_ACCESS_KEY**
+- **AWS_SECRET_ACCESS_KEY**
