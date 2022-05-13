@@ -12,7 +12,9 @@ commercial services:
 Set the following environmental variables for the various services:
 - **GOOGLE_APPLICATION_CREDENTIALS** path to JSON file
 - **AZURE_COMPUTER_VISION_KEY**
+- **AZURE_COMPUTER_VISION_ENDPOINT**
 - **AWS_ACCESS_KEY**
 - **AWS_SECRET_ACCESS_KEY**
 
-These values are set in an `.env` file.
+These values are set in an `.env` file. To run the application on port 80, first change to root, and then run the
+following command `streamlit run app.py --server.address="0.0.0.0" --server.port="80" &`.
