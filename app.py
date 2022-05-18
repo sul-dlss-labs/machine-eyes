@@ -46,10 +46,6 @@ def drop_file_or_url():
             image_result = requests.get(url, stream=True)
             if image_result.status_code < 400:
                 image_bytes = image_result.raw.data
-            else:
-                st.write(f"Failed to retrieve {url} status code {image_result.status_code} ")
-        else:
-            st.write(f"{url} image format not supported")
 
     if image_bytes:
         st.session_state["source"] = image_bytes
