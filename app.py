@@ -15,7 +15,7 @@ st.title("Machine Eyes")
 def drop_file_or_url():
     inital_page = st.empty()
     with inital_page.container():
-        header_text = """<h3 style="color:#fe644e">Drop in a handwritten text pdf, jpg, png, or IIIF</h3>"""
+        header_text = """<h3 style="color:#fe644e">Drop in a handwritten text pdf, jpg, or png</h3>"""
         st.markdown(header_text, unsafe_allow_html=True)
 
         all_col, goog_col, ms_col, amz_col = st.columns(4)
