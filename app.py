@@ -1,4 +1,5 @@
 """Machine Eyes Streamlit Application"""
+import requests
 
 from mimetypes import init
 import streamlit as st
@@ -6,6 +7,8 @@ import streamlit as st
 from aws import aws_detect_text
 from azure_vision import acvs_detect_text
 from goog import gcp_detect_text
+
+image_formats = ["pdf", "png", "jpg"]
 
 st.title("Machine Eyes")
 
@@ -29,18 +32,34 @@ def drop_file_or_url():
         with amz_col:
             amazon = st.checkbox("Amazon", key="amazon", value=all_services)
 
-        uploaded_file = st.file_uploader("", type=["pdf", "png", "jpg"])
+        uploaded_file = st.file_uploader("", type=image_formats)
 
-        url = st.text_input("Image or IIIF URL")
+        url = st.text_input("Image URL")
 
+
+    image_bytes = None
     if uploaded_file is not None:
         image_bytes= uploaded_file.getvalue()
+    elif url is not None:
+        image_suffix = url.split(".")[-1]
+        if image_suffix in image_formats:
+            image_result = requests.get(url, stream=True)
+            if image_result.status_code < 400:
+                image_bytes = image_result.raw.data
+            else:
+                st.write(f"Failed to retrieve {url} status code {image_result.status_code} ")
+        else:
+            st.write(f"{url} image format not supported")
+
+    if image_bytes:
         st.session_state["source"] = image_bytes
         st.session_state["goog"] = google
         st.session_state["ms"] = microsoft
         st.session_state["aws"] = amazon
         inital_page.empty()
         show_results(image_bytes)
+
+
 
 def show_results(image_bytes):
 
