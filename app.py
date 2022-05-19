@@ -10,6 +10,8 @@ from goog import gcp_detect_text
 
 image_formats = ["pdf", "png", "jpg"]
 
+st.image("StanfordLibraries-logo-bw_lightbackground.png")
+
 st.title("Machine Eyes")
 
 def drop_file_or_url():
