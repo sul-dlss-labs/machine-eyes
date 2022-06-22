@@ -14,6 +14,9 @@ st.image("StanfordLibraries-logo-bw_lightbackground.png")
 
 st.title("Machine Eyes")
 
+st.markdown("""<h2 style="color: red">All Services currently disabled but will be returning soon!</h2>""",
+            unsafe_allow_html=True)
+
 def drop_file_or_url():
     inital_page = st.empty()
     with inital_page.container():
@@ -23,20 +26,20 @@ def drop_file_or_url():
         all_col, goog_col, ms_col, amz_col = st.columns(4)
 
         with all_col:
-            all_services = st.checkbox("All", key="all-services")
+            all_services = st.checkbox("All", key="all-services", disabled=True)
 
         with goog_col:
-            google = st.checkbox("Google", key="google", value=all_services)
+            google = st.checkbox("Google", key="google", value=all_services, disabled=True)
 
         with ms_col:
-            microsoft = st.checkbox("Microsoft", key="microsoft", value=all_services)
+            microsoft = st.checkbox("Microsoft", key="microsoft", value=all_services, disabled=True)
 
         with amz_col:
-            amazon = st.checkbox("Amazon", key="amazon", value=all_services)
+            amazon = st.checkbox("Amazon", key="amazon", value=all_services, disabled=True)
 
-        uploaded_file = st.file_uploader("", type=image_formats)
+        uploaded_file = st.file_uploader("", type=image_formats, disabled=True)
 
-        url = st.text_input("Image URL")
+        url = st.text_input("Image URL", disabled=True)
 
 
     image_bytes = None
