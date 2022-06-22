@@ -23,3 +23,8 @@ To run the application on port 80:
 2. Populate environment variables by `source .env`
 3. Activate the Python environment by `source py3-env/bin/activate`
 4. Run streamlit in the background `streamlit run app.py --server.address="0.0.0.0" --server.port="80" &`.
+
+To run the application on port 8150 with port-forwarding from Apache:
+1. Populate environment variables by `source .env`
+2. Activate the Python environment by `source py3-env/bin/activate`
+3. Run streamlit in the background with CORS disabled: `run app.py --server.address="0.0.0.0" --server.enableCORS=false &`
